@@ -65,7 +65,7 @@ export const hero = {
   checks: ["Minha Casa Minha Vida", "Use seu FGTS", "Entrada facilitada", "Simulação gratuita"],
   cta: "Fazer minha simulação",
   micro: "Gratuito · Sem compromisso · Leva menos de 1 minuto",
-  selo: { rotulo: "Entrada a partir de", valor: "R$ 800*" },
+  selo: { rotulo: "Entrada a partir de", valor: "R$ 800", asterisco: "*" },
   prova: {
     linha1: `Atendimento com ${pessoa.nome} e equipe`,
     linha2: "+600 imóveis vendidos · Campeão de vendas da Zona Oeste",
@@ -137,7 +137,7 @@ export const objecoes = {
     },
     {
       icone: "pessoas",
-      titulo: "“Minha renda sozinho não é suficiente”",
+      titulo: "“Só a minha renda não é suficiente”",
       texto: "Você pode compor renda com cônjuge, pais, filhos ou familiares.",
     },
   ],
@@ -205,7 +205,7 @@ export const oportunidades = {
       nome: "Nova Leopoldina",
       bairro: "Vila Leopoldina",
       regiaoFormulario: "Vila Leopoldina",
-      referencia: "Perto do Ceagesp, do Sesc Vila Leopoldina e da estação Ceasa",
+      referencia: "Perto do Ceagesp, do Sesc Leopoldina e da estação Ceasa",
       tag: "Lançamento",
       specs: ["2 dorms com terraço", "37 a 39 m²"],
       lazer: "Piscinas, sport bar, playground e pet place",
