@@ -23,6 +23,8 @@ export const pessoa = {
   primeiroNome: "Kauê",
   cargo: "Gerente de Vendas",
   empresa: "Cury",
+  logo: "/img/cury-logo.png",
+  logoBranco: "/img/cury-logo-branco.png",
   /** Obrigatorio em publicidade imobiliaria (Lei 6.530/78). */
   creci: "CRECI 269601",
   instagram: "gerentehoracio",
@@ -69,11 +71,12 @@ export const hero = {
     linha2: "+600 imóveis vendidos · Campeão de vendas da Zona Oeste",
   },
   imagem: {
-    src: "/img/hero-familia.webp",
-    largura: 1000,
-    altura: 1334,
-    alt: "Família de clientes do Kauê com a pasta do apartamento novo no stand de vendas",
+    src: "/img/hero-bosque-da-barra.webp",
+    largura: 1440,
+    altura: 900,
+    alt: "Perspectiva ilustrativa da fachada do Bosque da Barra, lançamento Cury na Barra Funda",
   } satisfies Foto,
+  legenda: "Bosque da Barra · Barra Funda",
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -145,14 +148,17 @@ export const objecoes = {
 /* -------------------------------------------------------------------------- */
 
 /**
- * Dados conferidos em 20/10/2026 em portais de lancamento (apto.vc). Todos
- * sao lancamentos com beneficio Minha Casa Minha Vida. Preco NAO aparece de
- * proposito: muda toda semana e quem passa e o time do Kaue, na simulacao.
+ * Fonte: cury.net (paginas oficiais, conferidas em 20/10/2026) + metragens do
+ * portal apto.vc. Todos sao lancamentos com unidades HIS (Minha Casa Minha
+ * Vida). Imagens sao as perspectivas oficiais da Cury (ilustrativas).
+ * Preco NAO aparece de proposito: muda toda semana e sai na simulacao.
  * Nunca coloque endereco: so bairro e ponto de referencia.
+ * `registro` e o texto legal de incorporacao (Lei 4.591/64): obrigatorio em
+ * qualquer publicidade do empreendimento. Vai para o rodape.
  */
 export const oportunidades = {
   sobretitulo: "Zona Oeste de SP",
-  titulo: "Algumas oportunidades disponíveis na Zona Oeste",
+  titulo: "Lançamentos Cury disponíveis na Zona Oeste",
   descricao: "Opções para diferentes perfis. A simulação mostra quais combinam com você.",
   rotuloPreco: "Valores e condições",
   valorPreco: "Na sua simulação",
@@ -161,32 +167,56 @@ export const oportunidades = {
   itens: [
     {
       nome: "Parque das Perdizes",
-      bairro: "Barra Funda / Perdizes",
-      regiaoFormulario: "Perdizes",
-      referencia: "Pertinho da estação Barra Funda, do Shopping Bourbon e em frente à Playball",
+      bairro: "Barra Funda",
+      regiaoFormulario: "Barra Funda",
+      referencia: "Perto do Parque da Água Branca, da estação Palmeiras-Barra Funda e do Nubank Parque",
       tag: "Lançamento",
-      specs: ["1 e 2 dorms", "25 a 52 m²", "Lazer completo"],
-      imagem: { src: "/img/empreendimentos/playball.webp", largura: 800, altura: 1200, alt: "Imagem ilustrativa de prédio residencial" },
+      specs: ["1 e 2 dorms", "25 a 52 m²", "Opção de suíte e vaga"],
+      lazer: "Piscinas, beach tennis, mini quadra e playground",
+      imagem: { src: "/img/empreendimentos/parque-das-perdizes.webp", largura: 565, altura: 475, alt: "Perspectiva ilustrativa das torres do Parque das Perdizes" },
+      registro:
+        "CCISA187 INCORPORADORA LTDA. (PARQUE DAS PERDIZES). Incorporação registrada em 23/09/2026, R.18 da matrícula 29.041 do 15º Oficial de Registro de Imóveis da Comarca de São Paulo/SP. Com 676 unidades HIS-2 para famílias de 3 a 6 salários mínimos e 140 unidades R2V sem limite de renda.",
     },
     {
       nome: "Bosque da Barra",
       bairro: "Barra Funda",
       regiaoFormulario: "Barra Funda",
-      referencia: "Perto de metrô e trem",
+      referencia: "Perto do Sesc Bom Retiro, da estação Júlio Prestes e do Memorial da América Latina",
       tag: "Lançamento",
-      specs: ["1 e 2 dorms", "32 a 46 m²", "Lazer completo"],
-      imagem: { src: "/img/empreendimentos/bosque-da-barra.webp", largura: 800, altura: 445, alt: "Imagem ilustrativa de área de lazer com piscina" },
+      specs: ["2 dorms", "32 a 46 m²", "Opção de suíte e vaga"],
+      lazer: "Piscinas, rooftop, espaço yoga e playground",
+      imagem: { src: "/img/empreendimentos/bosque-da-barra.webp", largura: 800, altura: 500, alt: "Perspectiva ilustrativa do rooftop do Bosque da Barra" },
+      registro:
+        "CCISA 185 INCORPORADORA LTDA. (BOSQUE DA BARRA). Incorporação registrada em 25/05/2026, R.3 da matrícula 332.813 do 15º Oficial de Registro de Imóveis da Comarca de São Paulo/SP. Com 273 unidades HIS-1 para famílias de até 3 salários mínimos, 174 unidades HIS-2 para famílias de 3 a 6 salários mínimos, 100 unidades HMP para famílias de 6 a 10 salários mínimos e 77 unidades R2V sem limite de renda.",
+    },
+    {
+      nome: "Cidade Lapa – Perdizes",
+      bairro: "Lapa",
+      regiaoFormulario: "Lapa",
+      referencia: "Perto do Mercado Municipal da Lapa, da estação Lapa e do Centro de Tradições Nordestinas",
+      tag: "Lançamento",
+      specs: ["2 dorms", "34 a 46 m²", "Opção de suíte e vaga"],
+      lazer: "Piscinas, rooftop, espaço zen e solário",
+      imagem: { src: "/img/empreendimentos/cidade-lapa-perdizes.webp", largura: 800, altura: 500, alt: "Perspectiva ilustrativa das torres do Cidade Lapa – Perdizes" },
+      registro:
+        "CCISA29 INCORPORADORA LTDA. (CIDADE LAPA - PERDIZES). Incorporação registrada em 19/05/2026, R.6 da matrícula 174.806 do 10º Oficial de Registro de Imóveis da Comarca de São Paulo/SP. Com 504 unidades HIS-2 para famílias de 3 a 6 salários mínimos e 149 unidades R2V sem limite de renda.",
     },
     {
       nome: "Nova Leopoldina",
       bairro: "Vila Leopoldina",
       regiaoFormulario: "Vila Leopoldina",
-      referencia: "Perto de transporte e de parque",
+      referencia: "Perto do Ceagesp, do Sesc Vila Leopoldina e da estação Ceasa",
       tag: "Lançamento",
-      specs: ["2 dorms", "37 a 39 m²", "Lazer completo"],
-      imagem: { src: "/img/empreendimentos/nova-leopoldina.webp", largura: 800, altura: 1198, alt: "Imagem ilustrativa de sala de apartamento compacto" },
+      specs: ["2 dorms com terraço", "37 a 39 m²"],
+      lazer: "Piscinas, sport bar, playground e pet place",
+      imagem: { src: "/img/empreendimentos/nova-leopoldina.webp", largura: 800, altura: 500, alt: "Perspectiva ilustrativa da piscina e das torres do Nova Leopoldina – Condomínio Art" },
+      registro:
+        "CCISA205 INCORPORADORA LTDA. (NOVA LEOPOLDINA COND. ART). Incorporação registrada em 08/05/2026, R.2 da matrícula 188.611 do 10º Oficial de Registro de Imóveis da Comarca de São Paulo/SP. Com 527 unidades HIS-2 para famílias de 3 a 6 salários mínimos e 126 unidades R2V sem limite de renda.",
     },
   ],
+  /** Fecho comum dos textos de registro, publicado pela Cury. */
+  registroComum:
+    "Compradores com renda mensal acima dos limites mencionados podem adquirir as unidades para investimento nos termos do Decreto Municipal 63.130/2024. Para mais informações, consulte a Central de Vendas da Cury (CNPJ 14.055.045/0001-78: CCISA 08 Consultoria Imobiliária Ltda. – CRECI 23.670-J).",
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -250,9 +280,9 @@ export const sobre = {
   cta: "Fazer minha simulação",
   foto: {
     src: "/img/kaue/kaue.webp",
-    largura: 460,
-    altura: 540,
-    alt: "Kauê Horácio, gerente de vendas, em Perdizes",
+    largura: 791,
+    altura: 674,
+    alt: "Kauê Horácio, gerente de vendas",
   } satisfies Foto,
   avatar: "/img/kaue/avatar.webp",
 } as const;
@@ -317,9 +347,8 @@ export const meta = {
 export const PENDENCIAS = [
   "(!) simulacao.faixas — valores reais de financiamento por faixa. Hoje os cards estao trancados (borrados) de proposito.",
   "(!) Autorizacao de uso de imagem das pessoas nas fotos e videos de prova social.",
-  "Nome oficial do lancamento da Playball (aqui: 'Parque das Perdizes', Cury, Barra Funda). Confirmar com o Kaue.",
-  "Logo da Cury em PNG oficial (e autorizacao de uso). Hoje a Cury aparece so em texto.",
-  "Foto profissional do Kaue (hoje: recorte de post do Instagram).",
-  "Imagens oficiais dos empreendimentos (hoje: banco de imagens, marcadas como ilustrativas).",
+  "Confirmar com o Kaue que ele atende os 4 lancamentos listados (Parque das Perdizes, Bosque da Barra, Cidade Lapa – Perdizes, Nova Leopoldina).",
+  "Metragens vem do portal apto.vc; conferir com as plantas oficiais.",
+  "Uso da marca e das perspectivas da Cury: confirmar que o Kaue, como gerente, pode usar nesta pagina.",
   "WhatsApp apos envio: desligado por decisao do cliente. Se pedirem, entra como wa.me na tela de sucesso.",
 ] as const;

@@ -8,7 +8,7 @@ import { pessoa, sobre } from "../lib/site";
 <section id="kaue" class="bg-navy-950 py-16 md:py-28">
   <div class="mx-auto grid max-w-[1200px] items-center gap-6 px-4 md:px-6 lg:grid-cols-[480px_1fr] lg:gap-20">
     <div class="revelar h-[380px] overflow-hidden rounded-[20px] md:h-[560px] md:rounded-3xl">
-      <img src={sobre.foto.src} width={sobre.foto.largura} height={sobre.foto.altura} alt={sobre.foto.alt} loading="lazy" class="size-full object-cover object-top" />
+      <img src={sobre.foto.src} width={sobre.foto.largura} height={sobre.foto.altura} alt={sobre.foto.alt} loading="lazy" class="size-full object-cover object-[50%_20%]" />
     </div>
     <div class="revelar flex flex-col gap-5 md:gap-6">
       <Sobretitulo tom="ouro">{sobre.sobretitulo}</Sobretitulo>
@@ -16,7 +16,7 @@ import { pessoa, sobre } from "../lib/site";
       <p class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-semibold text-white/90 md:text-[17px]">
         <span>{pessoa.cargo}</span>
         <span class="h-4 w-px bg-white/25 md:h-5"></span>
-        <span class="font-display font-extrabold tracking-wide">{pessoa.empresa}</span>
+        <img src={pessoa.logoBranco} width="98" height="31" alt={pessoa.empresa} class="h-5 w-auto md:h-6" />
         <span class="h-4 w-px bg-white/25 md:h-5"></span>
         <span>{pessoa.creci}</span>
       </p>

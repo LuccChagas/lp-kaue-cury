@@ -12,16 +12,17 @@ import { oportunidades, pessoa } from "../lib/site";
         <h2 class="font-display text-[26px] leading-tight font-bold md:text-[44px]">{oportunidades.titulo}</h2>
         <p class="text-base leading-relaxed text-tinta-500 md:text-[19px]">{oportunidades.descricao}</p>
       </div>
-      <p class="mt-1 text-xs tracking-wide text-tinta-500 md:text-right md:text-sm">
-        Lançamentos <strong class="font-display font-extrabold text-tinta-900">{pessoa.empresa}</strong>
+      <p class="mt-2 flex items-center gap-2.5 text-xs tracking-wide text-tinta-500 md:flex-col md:items-end md:text-sm">
+        Lançamentos
+        <img src={pessoa.logo} width="491" height="156" alt="Cury" class="h-7 w-auto md:h-9" />
       </p>
     </div>
 
-    <div class="carrossel mt-7 flex gap-3 overflow-x-auto px-4 pb-2 md:mt-12 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:px-6">
+    <div class="carrossel mt-7 flex gap-3 overflow-x-auto px-4 pb-2 md:mt-12 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible lg:grid-cols-4 lg:gap-5 md:px-6">
       {
         oportunidades.itens.map((e) => (
-          <article class="flex w-[300px] shrink-0 flex-col overflow-hidden rounded-[18px] border border-linha-200 bg-white md:w-auto md:rounded-[20px]">
-            <div class="relative h-[180px] md:h-[240px]">
+          <article class="flex w-[290px] shrink-0 flex-col overflow-hidden rounded-[18px] border border-linha-200 bg-white md:w-auto md:rounded-[20px]">
+            <div class="relative h-[180px] md:h-[200px]">
               <img src={e.imagem.src} width={e.imagem.largura} height={e.imagem.altura} alt={e.imagem.alt} loading="lazy" class="size-full object-cover" />
               <span class="absolute top-3 left-3 rounded-full bg-ouro-400 px-2.5 py-1 font-display text-[10px] font-bold uppercase tracking-wider text-navy-950 md:top-4 md:left-4 md:text-[11px]">
                 {e.tag}
@@ -32,18 +33,19 @@ import { oportunidades, pessoa } from "../lib/site";
             </div>
             <div class="flex flex-1 flex-col gap-3 p-5 md:gap-4 md:p-6">
               <div class="flex flex-col gap-1.5">
-                <h3 class="font-display text-[21px] font-bold md:text-2xl">{e.nome}</h3>
+                <h3 class="font-display text-[21px] leading-tight font-bold">{e.nome}</h3>
                 <p class="flex items-center gap-1.5 text-sm font-semibold text-azul-600 md:text-[15px]">
                   <Icone nome="pin" tamanho={16} />
                   {e.bairro}
                 </p>
                 <p class="text-[13px] leading-snug text-tinta-500 md:text-sm">{e.referencia}</p>
               </div>
-              <ul class="flex flex-wrap gap-2">
+              <ul class="flex flex-wrap gap-1.5">
                 {e.specs.map((s) => (
-                  <li class="rounded-lg border border-linha-200 bg-superficie px-2.5 py-1.5 text-[13px] font-medium">{s}</li>
+                  <li class="rounded-lg border border-linha-200 bg-superficie px-2 py-1 text-[13px] font-medium">{s}</li>
                 ))}
               </ul>
+              <p class="text-[13px] leading-snug text-tinta-500"><span class="font-semibold text-tinta-900">Lazer:</span> {e.lazer}</p>
               <div>
                 <p class="text-[13px] text-tinta-500">{oportunidades.rotuloPreco}</p>
                 <p class="font-display text-[17px] font-extrabold text-azul-600 md:text-xl">{oportunidades.valorPreco}</p>

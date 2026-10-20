@@ -2,7 +2,7 @@
 import Cta from "./ui/Cta.astro";
 import Check from "./ui/Check.astro";
 import Sobretitulo from "./ui/Sobretitulo.astro";
-import { hero, sobre } from "../lib/site";
+import { hero, sobre, pessoa } from "../lib/site";
 ---
 
 <section id="inicio" class="bg-navy-950 pt-[68px] md:pt-[88px]">
@@ -15,9 +15,12 @@ import { hero, sobre } from "../lib/site";
         height={hero.imagem.altura}
         alt={hero.imagem.alt}
         fetchpriority="high"
-        class="size-full object-cover object-[50%_35%]"
+        class="size-full object-cover object-[55%_50%]"
       />
       <div class="absolute inset-0 bg-gradient-to-b from-navy-950/20 via-transparent to-navy-950 lg:from-transparent lg:via-transparent lg:to-navy-950/80"></div>
+      <span class="absolute top-4 right-4 rounded-md bg-navy-950/65 px-2 py-1 text-[11px] font-medium text-white lg:top-6 lg:right-6">
+        {hero.legenda} · Imagem ilustrativa
+      </span>
       <div class="absolute bottom-4 left-4 rounded-2xl bg-white px-4 py-3 shadow-[0_10px_30px_rgba(8,20,35,0.35)] lg:bottom-7 lg:left-7 lg:px-5 lg:py-4">
         <p class="text-xs text-tinta-500 lg:text-[13px]">{hero.selo.rotulo}</p>
         <p class="font-display text-[26px] font-extrabold text-azul-600 lg:text-[32px]">{hero.selo.valor}</p>
@@ -39,10 +42,15 @@ import { hero, sobre } from "../lib/site";
       </div>
       <div class="flex items-center gap-3 border-t border-white/12 pt-5">
         <img src={sobre.avatar} width="44" height="44" alt="" class="size-11 shrink-0 rounded-full border-2 border-ouro-400 object-cover md:size-12" />
-        <div class="min-w-0">
+        <div class="min-w-0 flex-1">
           <p class="text-sm font-semibold text-white md:text-[15px]">{hero.prova.linha1}</p>
           <p class="text-xs text-white/60 md:text-[13px]">{hero.prova.linha2}</p>
         </div>
+        <span class="hidden h-10 w-px bg-white/15 sm:block"></span>
+        <span class="hidden flex-col gap-1.5 sm:flex">
+          <span class="text-[11px] tracking-wide text-white/50">Lançamentos</span>
+          <img src={pessoa.logoBranco} width="98" height="31" alt="Cury" class="h-[26px] w-auto" />
+        </span>
       </div>
     </div>
   </div>
