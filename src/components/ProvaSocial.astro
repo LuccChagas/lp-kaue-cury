@@ -1,0 +1,71 @@
+---
+import Icone from "./ui/Icone.astro";
+import Sobretitulo from "./ui/Sobretitulo.astro";
+import { provas } from "../lib/site";
+---
+
+<section id="prova" class="bg-superficie py-16 md:py-28">
+  <div class="mx-auto flex max-w-[1200px] flex-col gap-7 md:gap-14">
+    <h2 class="revelar max-w-[820px] px-4 font-display text-[26px] leading-tight font-bold md:px-6 md:text-[44px]">{provas.titulo}</h2>
+
+    <dl class="revelar mx-4 grid grid-cols-2 border-y border-linha-200 md:mx-6 md:grid-cols-4 md:py-9">
+      {
+        provas.metricas.map((m, i) => (
+          <div class:list={["flex flex-col gap-1 py-5 md:py-0", i < 2 && "border-b border-linha-200 md:border-0"]}>
+            <dt class="order-2 text-sm text-tinta-500 md:text-base">{m.rotulo}</dt>
+            <dd class="order-1 font-display text-[32px] font-extrabold text-azul-600 md:text-5xl">{m.valor}</dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <div class="flex flex-col gap-2 px-4 md:px-6">
+      <Sobretitulo>{provas.videosSobretitulo}</Sobretitulo>
+      <h3 class="font-display text-xl leading-tight font-bold md:text-[26px]">{provas.videosTitulo}</h3>
+    </div>
+
+    <div class="carrossel -mt-2 flex gap-3 overflow-x-auto px-4 pb-2 md:mt-0 md:grid md:grid-cols-4 md:gap-5 md:overflow-visible md:px-6">
+      {
+        provas.videos.map((v) => (
+          <figure class="relative h-[390px] w-[220px] shrink-0 overflow-hidden rounded-[18px] bg-navy-900 md:h-[480px] md:w-auto md:rounded-[20px]" data-video>
+            <video
+              src={v.src}
+              poster={v.poster}
+              preload="none"
+              playsinline
+              class="size-full object-cover"
+            />
+            <button
+              type="button"
+              data-play
+              class="absolute inset-0 flex flex-col items-center justify-end bg-gradient-to-b from-transparent via-transparent to-navy-950/80 p-4 text-left md:p-5"
+              aria-label="Assistir vídeo de comemoração de venda"
+            >
+              <span class="absolute top-1/2 left-1/2 grid size-12 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-navy-950 md:size-14">
+                <Icone nome="play" tamanho={22} class="ml-0.5 fill-current" />
+              </span>
+              <span class="flex items-center gap-1.5 self-start text-[13px] font-semibold text-white md:text-sm">
+                <Icone nome="festa" tamanho={16} class="text-ouro-400" />
+                {provas.videoLegenda}
+              </span>
+            </button>
+          </figure>
+        ))
+      }
+    </div>
+
+    <ul class="grid grid-cols-2 gap-2.5 px-4 md:grid-cols-5 md:gap-4 md:px-6">
+      {
+        provas.fotos.map((f, i) => (
+          <li class:list={["overflow-hidden rounded-[14px] md:rounded-2xl", i >= 6 && "hidden md:block"]}>
+            <img src={f.src} width={f.largura} height={f.altura} alt={f.alt} loading="lazy" class="aspect-[4/5] size-full object-cover md:aspect-[3/4]" />
+          </li>
+        ))
+      }
+    </ul>
+    <p class="-mt-2 flex items-center gap-2 px-4 text-[13px] font-medium text-tinta-500 md:mt-0 md:px-6 md:text-[15px]">
+      <Icone nome="coracao" tamanho={18} class="text-azul-600" />
+      {provas.rodape}
+    </p>
+  </div>
+</section>

@@ -1,0 +1,49 @@
+---
+import Cta from "./ui/Cta.astro";
+import Check from "./ui/Check.astro";
+import Sobretitulo from "./ui/Sobretitulo.astro";
+import { hero, sobre } from "../lib/site";
+---
+
+<section id="inicio" class="bg-navy-950 pt-[68px] md:pt-[88px]">
+  <div class="mx-auto grid max-w-[1200px] items-center gap-0 md:gap-16 md:px-6 md:pt-16 md:pb-24 lg:grid-cols-[1fr_540px]">
+    <!-- Foto: faixa no mobile, coluna no desktop -->
+    <div class="relative order-first h-[300px] overflow-hidden md:h-[420px] md:rounded-3xl lg:order-last lg:h-[640px]">
+      <img
+        src={hero.imagem.src}
+        width={hero.imagem.largura}
+        height={hero.imagem.altura}
+        alt={hero.imagem.alt}
+        fetchpriority="high"
+        class="size-full object-cover object-[50%_35%]"
+      />
+      <div class="absolute inset-0 bg-gradient-to-b from-navy-950/20 via-transparent to-navy-950 lg:from-transparent lg:via-transparent lg:to-navy-950/80"></div>
+      <div class="absolute bottom-4 left-4 rounded-2xl bg-white px-4 py-3 shadow-[0_10px_30px_rgba(8,20,35,0.35)] lg:bottom-7 lg:left-7 lg:px-5 lg:py-4">
+        <p class="text-xs text-tinta-500 lg:text-[13px]">{hero.selo.rotulo}</p>
+        <p class="font-display text-[26px] font-extrabold text-azul-600 lg:text-[32px]">{hero.selo.valor}</p>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-5 px-4 pt-2 pb-12 md:gap-7 md:px-0 md:pb-0">
+      <Sobretitulo tom="ouro">{hero.sobretitulo}</Sobretitulo>
+      <h1 class="font-display text-[32px] leading-[1.15] font-extrabold tracking-[-0.01em] text-white md:text-5xl lg:text-[54px] lg:leading-[1.12]">
+        {hero.tituloAntes} <span class="text-ouro-400">{hero.tituloDestaque}</span> {hero.tituloDepois}
+      </h1>
+      <p class="max-w-[560px] text-[17px] leading-relaxed text-white/80 md:text-xl">{hero.subtitulo}</p>
+      <ul class="grid gap-3 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-3.5">
+        {hero.checks.map((c) => <Check texto={c} />)}
+      </ul>
+      <div class="flex flex-col gap-3 md:items-start">
+        <Cta origem="hero" texto={hero.cta} tamanho="grande" class="w-full md:w-auto" />
+        <p class="text-center text-[13px] text-white/60 md:text-left md:text-sm">{hero.micro}</p>
+      </div>
+      <div class="flex items-center gap-3 border-t border-white/12 pt-5">
+        <img src={sobre.avatar} width="44" height="44" alt="" class="size-11 shrink-0 rounded-full border-2 border-ouro-400 object-cover md:size-12" />
+        <div class="min-w-0">
+          <p class="text-sm font-semibold text-white md:text-[15px]">{hero.prova.linha1}</p>
+          <p class="text-xs text-white/60 md:text-[13px]">{hero.prova.linha2}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

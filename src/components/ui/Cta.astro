@@ -1,0 +1,43 @@
+---
+/**
+ * TODO CTA da pagina leva ao formulario unico (#simulacao). Nenhum abre
+ * WhatsApp. `origem` diferencia qual secao converte; `renda` e `regiao`
+ * pre-preenchem o formulario quando o clique vem de um card.
+ */
+import Icone from "./Icone.astro";
+
+interface Props {
+  origem: string;
+  texto: string;
+  tamanho?: "normal" | "grande" | "compacto";
+  largura?: "auto" | "total";
+  renda?: string;
+  regiao?: string;
+  class?: string;
+}
+
+const { origem, texto, tamanho = "normal", largura = "auto", renda, regiao, class: classe = "" } = Astro.props;
+
+const alturas = {
+  compacto: "h-10 px-4 text-[13px] gap-1.5",
+  normal: "h-14 px-7 text-[15px] md:text-base gap-2.5",
+  grande: "h-[60px] px-8 text-[15px] md:text-base gap-2.5",
+};
+---
+
+<a
+  href="#simulacao"
+  data-cta={origem}
+  data-renda={renda}
+  data-regiao={regiao}
+  class:list={[
+    "inline-flex items-center justify-center rounded-xl bg-ouro-400 font-display font-bold uppercase tracking-wide text-navy-950",
+    "shadow-[0_8px_24px_rgba(242,179,61,0.35)] transition-colors hover:bg-ouro-500 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-ouro-400",
+    alturas[tamanho],
+    largura === "total" && "w-full",
+    classe,
+  ]}
+>
+  <span>{texto}</span>
+  <Icone nome="seta" tamanho={tamanho === "compacto" ? 16 : 20} />
+</a>

@@ -1,0 +1,16 @@
+---
+import Logo from "./ui/Logo.astro";
+import Cta from "./ui/Cta.astro";
+---
+
+<header
+  data-cabecalho
+  class="fixed inset-x-0 top-0 z-40 border-b border-white/10 bg-navy-950/95 backdrop-blur transition-shadow"
+>
+  <div class="mx-auto flex max-w-[1200px] items-center justify-between px-4 py-3.5 md:px-6 md:py-5">
+    <span class="md:hidden"><Logo compacto /></span>
+    <span class="hidden md:inline-flex"><Logo /></span>
+    <span class="md:hidden"><Cta origem="cabecalho" texto="Simular" tamanho="compacto" /></span>
+    <span class="hidden md:block"><Cta origem="cabecalho" texto="Fazer minha simulação" tamanho="compacto" class="!h-12 !px-5 !text-sm" /></span>
+  </div>
+</header>

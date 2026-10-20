@@ -1,0 +1,194 @@
+---
+import Icone from "./ui/Icone.astro";
+import Check from "./ui/Check.astro";
+import Sobretitulo from "./ui/Sobretitulo.astro";
+import { formulario as f, faixasRenda, regioes } from "../lib/site";
+
+const campo =
+  "h-[52px] w-full rounded-[10px] border-[1.5px] border-linha-200 bg-white px-4 text-base text-tinta-900 " +
+  "placeholder:text-[#8a97a8] focus:border-azul-600 focus:outline-none focus:ring-[3px] focus:ring-azul-50 " +
+  "aria-[invalid=true]:border-erro";
+const rotulo = "mb-2 block text-sm font-semibold text-tinta-900";
+const erro = "mt-1.5 hidden text-[13px] text-erro";
+---
+
+<section id="simulacao" class="bg-[linear-gradient(200deg,#0e2138,#081423)] py-16 md:py-28">
+  <div class="mx-auto grid max-w-[1200px] items-center gap-7 px-4 md:px-6 lg:grid-cols-[1fr_520px] lg:gap-20">
+    <div class="flex flex-col gap-5 md:gap-6">
+      <Sobretitulo tom="ouro">{f.sobretitulo}</Sobretitulo>
+      <h2 class="font-display text-[26px] leading-tight font-bold text-white md:text-[44px]">{f.titulo}</h2>
+      <p class="text-base leading-relaxed text-white/80 md:text-[19px]">{f.descricao}</p>
+      <ul class="hidden flex-col gap-3.5 lg:flex">{f.checks.map((c) => <Check texto={c} />)}</ul>
+    </div>
+
+    <div class="rounded-[20px] bg-white p-5 shadow-[0_24px_60px_rgba(0,0,0,0.35)] md:rounded-3xl md:p-10">
+      <form id="form-lead" novalidate class="flex flex-col gap-[18px] md:gap-5">
+        <h3 class="hidden font-display text-[26px] font-bold lg:block">{f.tituloCard}</h3>
+
+        <div>
+          <label for="campo-nome" class={rotulo}>{f.campos.nome.rotulo}</label>
+          <input id="campo-nome" name="nome" type="text" autocomplete="name" placeholder={f.campos.nome.placeholder} class={campo} maxlength="120" />
+          <p class={erro} data-erro="nome">{f.erros.nome}</p>
+        </div>
+
+        <div>
+          <label for="campo-whatsapp" class={rotulo}>{f.campos.whatsapp.rotulo}</label>
+          <input id="campo-whatsapp" name="whatsapp" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder={f.campos.whatsapp.placeholder} class={campo} />
+          <p class={erro} data-erro="whatsapp">{f.erros.whatsapp}</p>
+        </div>
+
+        <div>
+          <label for="campo-renda" class={rotulo}>{f.campos.renda.rotulo}</label>
+          <div class="relative">
+            <select id="campo-renda" name="renda" class:list={[campo, "appearance-none pr-11 invalid:text-[#8a97a8]"]} required>
+              <option value="" disabled selected>{f.campos.renda.placeholder}</option>
+              {faixasRenda.map((r) => <option value={r} class="text-tinta-900">{r}</option>)}
+            </select>
+            <Icone nome="chevron" class="pointer-events-none absolute top-1/2 right-4 -translate-y-1/2 text-tinta-500" />
+          </div>
+          <p class={erro} data-erro="renda">{f.erros.renda}</p>
+        </div>
+
+        <fieldset>
+          <legend class={rotulo}>{f.campos.regiao.rotulo}</legend>
+          <div class="flex flex-wrap gap-2">
+            {
+              regioes.map((r) => (
+                <label class="cursor-pointer">
+                  <input type="radio" name="regiao" value={r} class="peer sr-only" />
+                  <span class="inline-flex h-10 items-center rounded-full border-[1.5px] border-linha-200 bg-white px-4 text-[15px] font-medium transition-colors peer-checked:border-azul-600 peer-checked:bg-azul-50 peer-checked:text-azul-600 peer-focus-visible:ring-[3px] peer-focus-visible:ring-azul-400">
+                    {r}
+                  </span>
+                </label>
+              ))
+            }
+          </div>
+          <p class={erro} data-erro="regiao">{f.erros.regiao}</p>
+        </fieldset>
+
+        <div>
+          <label class="flex cursor-pointer items-start gap-2.5 text-[13px] leading-snug text-tinta-500">
+            <input type="checkbox" name="lgpd" class="mt-0.5 size-5 shrink-0 accent-azul-600" />
+            <span>{f.lgpd} <a href="/politica-de-privacidade" class="font-semibold text-azul-600 underline">{f.lgpdLink}</a>.</span>
+          </label>
+          <p class={erro} data-erro="lgpd">{f.erros.lgpd}</p>
+        </div>
+
+        <button type="submit" class="inline-flex h-14 w-full items-center justify-center gap-2.5 rounded-xl bg-ouro-400 font-display text-[15px] font-bold uppercase tracking-wide text-navy-950 shadow-[0_8px_24px_rgba(242,179,61,0.35)] transition-colors hover:bg-ouro-500 disabled:opacity-60 md:h-[60px] md:text-base">
+          <span data-rotulo>{f.botao}</span>
+          <Icone nome="seta" />
+        </button>
+        <p class="hidden rounded-lg bg-erro/10 px-3 py-2.5 text-sm text-erro" data-erro="envio" role="alert">{f.erros.envio}</p>
+
+        <p class="flex items-center gap-2.5 rounded-[10px] bg-azul-50 px-3 py-3 text-[13px] font-medium md:px-3.5">
+          <Icone nome="usuarioCheck" class="shrink-0 text-azul-600" />
+          {f.nota}
+        </p>
+        <p class="flex items-center justify-center gap-1.5 text-xs text-tinta-500">
+          <Icone nome="cadeado" tamanho={14} />
+          {f.seguranca}
+        </p>
+      </form>
+
+      <div id="form-sucesso" class="hidden flex-col items-center gap-4 py-6 text-center" role="status" tabindex="-1">
+        <span class="grid size-16 place-items-center rounded-full bg-sucesso/10 text-sucesso">
+          <Icone nome="sucesso" tamanho={36} />
+        </span>
+        <p class="font-display text-[26px] font-extrabold">{f.sucesso.titulo}</p>
+        <p class="max-w-[360px] text-[15px] leading-relaxed text-tinta-500 md:text-base">{f.sucesso.texto}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { rastrearLead } from "../lib/track";
+
+  const form = document.getElementById("form-lead") as HTMLFormElement | null;
+  const sucesso = document.getElementById("form-sucesso");
+
+  /** Mascara BR progressiva: (11) 91234-5678 e (11) 1234-5678. */
+  function mascarar(valor: string) {
+    const d = valor.replace(/\D/g, "").slice(0, 11);
+    if (!d) return "";
+    if (d.length <= 2) return `(${d}`;
+    if (d.length <= 6) return `(${d.slice(0, 2)}) ${d.slice(2)}`;
+    if (d.length <= 10) return `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;
+    return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
+  }
+
+  function mostrarErro(nome: string, visivel: boolean) {
+    form?.querySelector<HTMLElement>(`[data-erro="${nome}"]`)?.classList.toggle("hidden", !visivel);
+    const el = form?.querySelector<HTMLElement>(`[name="${nome}"]`);
+    if (el && el.getAttribute("type") !== "radio") el.setAttribute("aria-invalid", String(visivel));
+  }
+
+  if (form && sucesso) {
+    const whats = form.querySelector<HTMLInputElement>('[name="whatsapp"]')!;
+    whats.addEventListener("input", () => (whats.value = mascarar(whats.value)));
+
+    /* Limpa o erro ENQUANTO a pessoa digita/escolhe (evento input), nunca no
+       blur: sumir a mensagem no blur desloca o layout no meio do clique
+       seguinte e o toque cai fora do alvo (ex.: no checkbox da LGPD). */
+    form.addEventListener("input", (e) => {
+      const alvo = e.target as HTMLInputElement;
+      if (alvo.name) mostrarErro(alvo.name, false);
+    });
+
+    form.addEventListener("submit", async (evento) => {
+      evento.preventDefault();
+      const dados = new FormData(form);
+      const valores = {
+        nome: String(dados.get("nome") ?? "").trim(),
+        whatsapp: String(dados.get("whatsapp") ?? "").trim(),
+        renda: String(dados.get("renda") ?? ""),
+        regiao: String(dados.get("regiao") ?? ""),
+      };
+
+      const invalidos: string[] = [];
+      if (valores.nome.length < 2) invalidos.push("nome");
+      const digitos = valores.whatsapp.replace(/\D/g, "");
+      if (digitos.length < 10 || digitos.length > 11) invalidos.push("whatsapp");
+      if (!valores.renda) invalidos.push("renda");
+      if (!valores.regiao) invalidos.push("regiao");
+      if (!dados.get("lgpd")) invalidos.push("lgpd");
+
+      for (const n of ["nome", "whatsapp", "renda", "regiao", "lgpd"]) mostrarErro(n, invalidos.includes(n));
+      mostrarErro("envio", false);
+      if (invalidos.length) {
+        form.querySelector<HTMLElement>(`[name="${invalidos[0]}"]`)?.focus();
+        return;
+      }
+
+      const botao = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+      const rotulo = botao.querySelector<HTMLElement>("[data-rotulo]")!;
+      const original = rotulo.textContent;
+      botao.disabled = true;
+      rotulo.textContent = "Enviando...";
+
+      try {
+        const resposta = await fetch("/api/lead", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...valores,
+            origem: form.dataset.origem || "formulario",
+            pagina: window.location.href,
+          }),
+        });
+        if (!resposta.ok) throw new Error(String(resposta.status));
+
+        rastrearLead({ origem: form.dataset.origem || "formulario", renda: valores.renda, regiao: valores.regiao });
+        form.classList.add("hidden");
+        sucesso.classList.remove("hidden");
+        sucesso.classList.add("flex");
+        sucesso.focus();
+        document.dispatchEvent(new CustomEvent("lead-enviado"));
+      } catch {
+        mostrarErro("envio", true);
+        botao.disabled = false;
+        rotulo.textContent = original;
+      }
+    });
+  }
+</script>

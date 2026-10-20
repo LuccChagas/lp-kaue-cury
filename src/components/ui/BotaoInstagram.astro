@@ -1,0 +1,22 @@
+---
+import Icone from "./Icone.astro";
+import { pessoa } from "../../lib/site";
+interface Props {
+  class?: string;
+}
+const { class: classe = "" } = Astro.props;
+---
+
+<a
+  href={pessoa.instagramUrl}
+  target="_blank"
+  rel="noopener"
+  data-instagram
+  class:list={[
+    "inline-flex h-12 items-center justify-center gap-2.5 rounded-xl border-[1.5px] border-white/40 px-5 text-[15px] font-semibold text-white transition-colors hover:border-white hover:bg-white/5",
+    classe,
+  ]}
+>
+  <Icone nome="instagram" />
+  <span>@{pessoa.instagram}</span>
+</a>

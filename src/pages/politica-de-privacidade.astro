@@ -1,0 +1,43 @@
+---
+import Base from "../layouts/Base.astro";
+import Logo from "../components/ui/Logo.astro";
+import { pessoa, marca } from "../lib/site";
+---
+
+<Base titulo={`Política de privacidade · ${marca.nome}`} indexar={false}>
+  <header class="bg-navy-950 px-4 py-4 md:px-6">
+    <div class="mx-auto max-w-[760px]"><Logo compacto /></div>
+  </header>
+  <main class="mx-auto max-w-[760px] px-4 py-12 md:px-6 md:py-16">
+    <h1 class="font-display text-3xl font-extrabold md:text-4xl">Política de privacidade</h1>
+    <div class="mt-8 flex flex-col gap-5 text-base leading-relaxed text-tinta-900 [&_h2]:mt-4 [&_h2]:font-display [&_h2]:text-xl [&_h2]:font-bold">
+      <p>
+        Esta página é mantida pelo time de atendimento de {pessoa.nome} ({pessoa.cargo}, {pessoa.creci}) para ajudar
+        famílias a simular a compra do primeiro apartamento. Aqui explicamos, de forma simples, o que fazemos com os
+        dados que você envia, conforme a Lei Geral de Proteção de Dados (Lei 13.709/2018).
+      </p>
+      <h2>Quais dados coletamos</h2>
+      <p>
+        Nome, número de WhatsApp, faixa de renda familiar e região de interesse, informados por você no formulário de
+        simulação. Também registramos a página de origem e parâmetros de campanha (UTM) para saber de qual anúncio você veio.
+      </p>
+      <h2>Para que usamos</h2>
+      <p>
+        Exclusivamente para entrar em contato com você sobre a simulação e a compra de um imóvel, apresentar opções
+        compatíveis com seu perfil e medir o desempenho dos nossos anúncios. Não vendemos nem repassamos seus dados a terceiros.
+      </p>
+      <h2>Cookies e anúncios</h2>
+      <p>
+        Usamos ferramentas de medição (como Meta Pixel e Google Analytics) que podem salvar cookies no seu navegador para
+        contar visitas e conversões de forma agregada.
+      </p>
+      <h2>Seus direitos</h2>
+      <p>
+        Você pode pedir a qualquer momento acesso, correção ou exclusão dos seus dados. Basta responder a mensagem que
+        recebeu do nosso time ou falar com {pessoa.nome} pelo Instagram
+        <a class="font-semibold text-azul-600 underline" href={pessoa.instagramUrl}>@{pessoa.instagram}</a>.
+      </p>
+      <p><a href="/" class="font-semibold text-azul-600 underline">← Voltar para a página</a></p>
+    </div>
+  </main>
+</Base>

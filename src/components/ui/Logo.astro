@@ -1,0 +1,26 @@
+---
+import Icone from "./Icone.astro";
+import { marca } from "../../lib/site";
+
+interface Props {
+  tema?: "claro" | "escuro";
+  compacto?: boolean;
+}
+const { tema = "escuro", compacto = false } = Astro.props;
+const escuro = tema === "escuro";
+---
+
+<a href="#inicio" class="inline-flex items-center gap-2.5" aria-label={`${marca.nome}, voltar ao início`}>
+  <span class:list={["grid place-items-center rounded-xl bg-ouro-400 text-navy-950", compacto ? "size-[34px]" : "size-10"]}>
+    <Icone nome="casa" tamanho={compacto ? 19 : 22} />
+  </span>
+  <span class="flex flex-col">
+    <span class:list={["flex items-end gap-1.5 font-display leading-none", compacto ? "text-xl" : "text-2xl"]}>
+      <span class:list={["font-extrabold", escuro ? "text-white" : "text-tinta-900"]}>apê</span>
+      <span class:list={["font-medium", escuro ? "text-azul-400" : "text-azul-600"]}>na mão</span>
+    </span>
+    <span class:list={["mt-1 font-medium", compacto ? "text-[10px]" : "text-[11px]", escuro ? "text-white/65" : "text-tinta-500"]}>
+      {marca.assinatura}
+    </span>
+  </span>
+</a>

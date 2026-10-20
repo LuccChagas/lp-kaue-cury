@@ -1,0 +1,17 @@
+---
+interface Props {
+  tom?: "azul" | "ouro";
+  class?: string;
+}
+const { tom = "azul", class: classe = "" } = Astro.props;
+---
+
+<p
+  class:list={[
+    "font-display text-xs font-semibold uppercase tracking-[0.14em] md:text-sm",
+    tom === "ouro" ? "text-ouro-400" : "text-azul-600",
+    classe,
+  ]}
+>
+  <slot />
+</p>

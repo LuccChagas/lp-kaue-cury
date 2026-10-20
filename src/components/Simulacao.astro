@@ -1,0 +1,74 @@
+---
+import Cta from "./ui/Cta.astro";
+import Icone from "./ui/Icone.astro";
+import Sobretitulo from "./ui/Sobretitulo.astro";
+import { simulacao } from "../lib/site";
+---
+
+<section id="renda" class="bg-superficie py-16 md:py-28">
+  <div class="mx-auto max-w-[1200px]">
+    <div class="revelar flex max-w-[720px] flex-col gap-2.5 px-4 md:gap-3.5 md:px-6">
+      <Sobretitulo>{simulacao.sobretitulo}</Sobretitulo>
+      <h2 class="font-display text-[28px] leading-tight font-bold md:text-[44px]">{simulacao.titulo}</h2>
+      <p class="text-base leading-relaxed text-tinta-500 md:text-[19px]">{simulacao.descricao}</p>
+    </div>
+
+    <div class="carrossel mt-7 flex gap-3 overflow-x-auto px-4 pb-2 md:mt-12 md:grid md:grid-cols-5 md:items-end md:gap-4 md:overflow-visible md:px-6">
+      {
+        simulacao.faixas.map((f) => {
+          const d = f.destaque;
+          return (
+            <a
+              href="#simulacao"
+              data-cta="card-renda"
+              data-renda={f.faixaFormulario}
+              class:list={[
+                "relative flex w-[260px] shrink-0 flex-col gap-4 rounded-2xl border-[1.5px] p-5 transition-colors md:w-auto md:gap-5 md:p-6",
+                d ? "border-navy-950 bg-navy-950 text-white" : "border-linha-200 bg-white hover:border-azul-600",
+                "shadow-[0_4px_20px_rgba(8,20,35,0.06)]",
+              ]}
+            >
+              {d && (
+                <span class="self-start rounded-full bg-ouro-400 px-2.5 py-1 font-display text-[10px] font-bold uppercase tracking-wider text-navy-950 md:text-[11px]">
+                  {simulacao.rotuloDestaque}
+                </span>
+              )}
+              <span>
+                <span class:list={["block text-[13px] md:text-sm", d ? "text-white/70" : "text-tinta-500"]}>Renda familiar de</span>
+                <span class:list={["block font-display text-[28px] font-extrabold md:text-[30px]", d ? "text-white" : "text-tinta-900"]}>{f.renda}</span>
+              </span>
+              <span class:list={["h-px w-full", d ? "bg-white/15" : "bg-linha-200"]} />
+              <span>
+                <span class:list={["block text-[13px] md:text-sm", d ? "text-white/70" : "text-tinta-500"]}>Financiamento de até</span>
+                <span aria-hidden="true" class:list={["trancado block font-display text-[22px] font-bold", d ? "text-ouro-400" : "text-azul-600"]}>R$ 000.000</span>
+                <span class="sr-only">Valor disponível na simulação</span>
+              </span>
+              <span class="flex flex-col gap-2 text-sm" aria-hidden="true">
+                {["Entrada", "Parcela"].map((k) => (
+                  <span class="flex justify-between">
+                    <span class={d ? "text-white/70" : "text-tinta-500"}>{k}</span>
+                    <span class:list={["trancado font-semibold", d ? "text-white" : "text-tinta-900"]}>R$ 0.000</span>
+                  </span>
+                ))}
+              </span>
+              {f.subsidio && (
+                <span class:list={["self-start rounded-full px-2.5 py-1.5 text-xs font-semibold", d ? "bg-white/10 text-white" : "bg-azul-50 text-azul-600"]}>
+                  {simulacao.rotuloSubsidio}
+                </span>
+              )}
+              <span class:list={["mt-auto flex items-center gap-2 border-t pt-3.5 text-[13px] font-bold md:text-sm", d ? "border-white/15 text-ouro-400" : "border-linha-200 text-azul-600"]}>
+                <Icone nome="cadeado" tamanho={15} />
+                {simulacao.ctaCard}
+              </span>
+            </a>
+          );
+        })
+      }
+    </div>
+
+    <div class="mt-6 flex flex-col gap-4 px-4 md:mt-12 md:flex-row-reverse md:items-center md:justify-between md:px-6">
+      <Cta origem="simulacao" texto={simulacao.cta} class="w-full md:w-auto" />
+      <p class="max-w-[640px] text-xs leading-relaxed text-tinta-500 md:text-[13px]">{simulacao.aviso}</p>
+    </div>
+  </div>
+</section>

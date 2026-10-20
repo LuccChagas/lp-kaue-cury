@@ -1,0 +1,22 @@
+---
+import Cta from "./ui/Cta.astro";
+import Icone from "./ui/Icone.astro";
+---
+
+<!-- Mobile: barra inferior. Desktop: pilula flutuante. Ambos somem quando o
+     formulario esta na tela ou o lead ja foi enviado. -->
+<div
+  data-barra
+  class="pointer-events-none fixed inset-x-0 bottom-0 z-30 translate-y-full border-t border-linha-200 bg-white/95 px-4 pt-3 pb-[max(1.5rem,env(safe-area-inset-bottom))] opacity-0 shadow-[0_-6px_20px_rgba(8,20,35,0.1)] backdrop-blur transition-all duration-300 md:hidden"
+>
+  <Cta origem="barra-fixa" texto="Fazer minha simulação" largura="total" class="!h-[52px]" />
+</div>
+<a
+  href="#simulacao"
+  data-cta="flutuante"
+  data-flutuante
+  class="pointer-events-none fixed right-8 bottom-8 z-30 hidden h-14 translate-y-4 items-center gap-2.5 rounded-full bg-ouro-400 px-[22px] font-display text-[15px] font-bold text-navy-950 opacity-0 shadow-[0_8px_24px_rgba(8,20,35,0.25)] transition-all duration-300 hover:bg-ouro-500 md:inline-flex"
+>
+  <Icone nome="calculadora" tamanho={22} />
+  Simular agora
+</a>

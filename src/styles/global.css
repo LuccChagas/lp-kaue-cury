@@ -1,0 +1,82 @@
+@import "@fontsource-variable/montserrat";
+@import "@fontsource-variable/inter";
+@import "tailwindcss";
+
+/* Tokens do design system (Pencil · 00 DESIGN SYSTEM) */
+@theme {
+  --color-navy-950: #081423;
+  --color-navy-900: #0e2138;
+  --color-azul-600: #1c5d99;
+  --color-azul-400: #3b82c4;
+  --color-azul-50: #eaf2fa;
+  --color-ouro-400: #f2b33d;
+  --color-ouro-500: #d99a1e;
+  --color-tinta-900: #0f1b2d;
+  --color-tinta-500: #5b6b80;
+  --color-linha-200: #dce3ec;
+  --color-superficie: #f6f8fb;
+  --color-sucesso: #1f9d6b;
+  --color-erro: #dc2626;
+
+  --font-display: "Montserrat Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  @apply bg-superficie font-sans text-tinta-900 antialiased;
+}
+
+/* Header fixo esconde a ancora: compensa no scroll */
+section[id],
+[id="simulacao"] {
+  scroll-margin-top: 5rem;
+}
+
+/* Reveal: CSS puro + IntersectionObserver. Desligado com reduced motion. */
+.revelar {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+}
+.revelar.visivel {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .revelar {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Carrossel horizontal com snap (mobile) */
+.carrossel {
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 1rem;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.carrossel::-webkit-scrollbar {
+  display: none;
+}
+.carrossel > * {
+  scroll-snap-align: start;
+}
+
+/* Valor trancado: borrado, nao selecionavel, nao lido como texto */
+.trancado {
+  filter: blur(7px);
+  user-select: none;
+}

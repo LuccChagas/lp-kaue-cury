@@ -1,0 +1,133 @@
+---
+import Base from "../layouts/Base.astro";
+import Cabecalho from "../components/Cabecalho.astro";
+import Hero from "../components/Hero.astro";
+import Simulacao from "../components/Simulacao.astro";
+import Objecoes from "../components/Objecoes.astro";
+import Oportunidades from "../components/Oportunidades.astro";
+import ComoFunciona from "../components/ComoFunciona.astro";
+import ProvaSocial from "../components/ProvaSocial.astro";
+import Sobre from "../components/Sobre.astro";
+import Formulario from "../components/Formulario.astro";
+import Rodape from "../components/Rodape.astro";
+import BarraFixa from "../components/BarraFixa.astro";
+import { pessoa, meta } from "../lib/site";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "RealEstateAgent",
+  name: `${pessoa.nome} · ${pessoa.cargo}`,
+  description: meta.descricao,
+  areaServed: "Zona Oeste de São Paulo",
+  url: Astro.site?.href,
+  sameAs: [pessoa.instagramUrl],
+};
+---
+
+<Base>
+  <Cabecalho />
+  <main>
+    <Hero />
+    <Simulacao />
+    <Objecoes />
+    <Oportunidades />
+    <ComoFunciona />
+    <ProvaSocial />
+    <Sobre />
+    <Formulario />
+  </main>
+  <Rodape />
+  <BarraFixa />
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+</Base>
+
+<script>
+  import { rastrearIntencao, rastrearInstagram, rastrearRolagem } from "../lib/track";
+
+  /* CTAs: rastreia a origem e pre-preenche o formulario quando vem de um card */
+  document.querySelectorAll<HTMLAnchorElement>("[data-cta]").forEach((link) => {
+    link.addEventListener("click", () => {
+      const origem = link.dataset.cta ?? "cta";
+      rastrearIntencao(origem);
+      const form = document.getElementById("form-lead") as HTMLFormElement | null;
+      if (!form) return;
+      form.dataset.origem = origem;
+      if (link.dataset.renda) {
+        const select = form.querySelector<HTMLSelectElement>('[name="renda"]');
+        if (select) select.value = link.dataset.renda;
+      }
+      if (link.dataset.regiao) {
+        const radio = form.querySelector<HTMLInputElement>(`[name="regiao"][value="${link.dataset.regiao}"]`);
+        if (radio) radio.checked = true;
+      }
+    });
+  });
+
+  document.querySelectorAll<HTMLAnchorElement>("[data-instagram]").forEach((link) =>
+    link.addEventListener("click", () => rastrearInstagram(link.closest("section,footer")?.id || "rodape")),
+  );
+
+  /* Reveal das secoes */
+  const revelar = new IntersectionObserver(
+    (entradas) =>
+      entradas.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add("visivel");
+          revelar.unobserve(e.target);
+        }
+      }),
+    { rootMargin: "0px 0px -10% 0px" },
+  );
+  document.querySelectorAll(".revelar").forEach((el) => revelar.observe(el));
+
+  /* Videos: so baixam quando a pessoa toca (preload="none") */
+  document.querySelectorAll<HTMLElement>("[data-video]").forEach((fig) => {
+    const video = fig.querySelector("video")!;
+    const botao = fig.querySelector<HTMLButtonElement>("[data-play]")!;
+    botao.addEventListener("click", () => {
+      document.querySelectorAll("video").forEach((v) => v !== video && v.pause());
+      botao.hidden = true;
+      video.controls = true;
+      void video.play();
+    });
+  });
+
+  /* Barra fixa (mobile) e botao flutuante (desktop): aparecem depois do hero
+     e somem quando o formulario esta visivel ou o lead ja foi enviado. */
+  const barra = document.querySelector<HTMLElement>("[data-barra]");
+  const flutuante = document.querySelector<HTMLElement>("[data-flutuante]");
+  const hero = document.getElementById("inicio");
+  const secaoForm = document.getElementById("simulacao");
+  let passouHero = false;
+  let formVisivel = false;
+  let enviado = false;
+  function atualizarBarra() {
+    const mostrar = passouHero && !formVisivel && !enviado;
+    for (const el of [barra, flutuante]) {
+      if (!el) continue;
+      el.classList.toggle("opacity-0", !mostrar);
+      el.classList.toggle("pointer-events-none", !mostrar);
+      el.classList.toggle(el === barra ? "translate-y-full" : "translate-y-4", !mostrar);
+    }
+  }
+  if (hero) new IntersectionObserver(([e]) => ((passouHero = !e.isIntersecting), atualizarBarra())).observe(hero);
+  if (secaoForm) new IntersectionObserver(([e]) => ((formVisivel = e.isIntersecting), atualizarBarra())).observe(secaoForm);
+  document.addEventListener("lead-enviado", () => ((enviado = true), atualizarBarra()));
+
+  /* Marcos de rolagem */
+  const marcos = new Set<number>();
+  addEventListener(
+    "scroll",
+    () => {
+      const total = document.documentElement.scrollHeight - innerHeight;
+      const pct = total > 0 ? (scrollY / total) * 100 : 100;
+      for (const m of [25, 50, 75, 100]) {
+        if (pct >= m - 1 && !marcos.has(m)) {
+          marcos.add(m);
+          rastrearRolagem(m);
+        }
+      }
+    },
+    { passive: true },
+  );
+</script>

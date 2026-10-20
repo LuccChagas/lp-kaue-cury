@@ -1,0 +1,35 @@
+---
+import Cta from "./ui/Cta.astro";
+import Sobretitulo from "./ui/Sobretitulo.astro";
+import { comoFunciona } from "../lib/site";
+---
+
+<section id="como-funciona" class="bg-white py-16 md:py-28">
+  <div class="mx-auto flex max-w-[1200px] flex-col px-4 md:items-center md:px-6">
+    <Sobretitulo class="revelar hidden md:block">{comoFunciona.sobretitulo}</Sobretitulo>
+    <h2 class="revelar mt-0 font-display text-[28px] font-bold md:mt-4 md:text-[44px]">{comoFunciona.titulo}</h2>
+
+    <ol class="revelar mt-7 flex flex-col md:mt-10 md:grid md:w-full md:grid-cols-4 md:py-10">
+      {
+        comoFunciona.passos.map((p, i) => {
+          const ultimo = i === comoFunciona.passos.length - 1;
+          return (
+            <li class="flex gap-4 md:flex-col md:gap-4 md:pr-6">
+              <div class="flex flex-col items-center md:flex-row md:gap-3">
+                <span class:list={["grid size-10 shrink-0 place-items-center rounded-full font-display text-[17px] font-extrabold md:size-12 md:text-xl", i === 0 ? "bg-ouro-400 text-navy-950" : "bg-navy-950 text-white"]}>
+                  {i + 1}
+                </span>
+                {!ultimo && <span class="w-0.5 flex-1 bg-linha-200 md:h-0.5 md:w-auto md:flex-1" />}
+              </div>
+              <div class:list={["flex flex-col gap-1 pt-2 md:pt-0", !ultimo && "pb-7 md:pb-0"]}>
+                <h3 class="font-display text-lg font-bold md:text-[21px]">{p.titulo}</h3>
+                <p class="text-[15px] leading-relaxed text-tinta-500 md:text-base">{p.texto}</p>
+              </div>
+            </li>
+          );
+        })
+      }
+    </ol>
+    <Cta origem="como-funciona" texto={comoFunciona.cta} tamanho="grande" class="mt-4 w-full md:mt-0 md:w-auto" />
+  </div>
+</section>

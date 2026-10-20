@@ -1,0 +1,13 @@
+---
+import Icone from "./Icone.astro";
+interface Props {
+  texto: string;
+}
+---
+
+<li class="flex items-center gap-2.5 text-base font-medium text-white md:text-[17px]">
+  <span class="grid size-6 shrink-0 place-items-center rounded-full bg-sucesso text-white">
+    <Icone nome="check" tamanho={14} />
+  </span>
+  {Astro.props.texto}
+</li>
